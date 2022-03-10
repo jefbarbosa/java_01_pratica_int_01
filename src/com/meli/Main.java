@@ -10,14 +10,25 @@ public class Main {
             "Lima", "Santiago de Chile", "Lisboa", "Tokio"};
 
     public static void main(String[] args) {
-	    int min = 0, max = 0;
-
-        for (int i = 0; i < temperatureMatrix.length; i++) {
-            min = temperatureMatrix[i][0] < temperatureMatrix[min][0] ? i : min;
-            max = temperatureMatrix[i][1] > temperatureMatrix[max][1] ? i : max;
-        }
+        int min = extremeTemperatureIndex(false);
+        int max = extremeTemperatureIndex(true);
 
         System.out.println("Temperatura mais baixa: " + temperatureMatrix[min][0] + " em " + cities[min]);
         System.out.println("Temperatura mais alta: " + temperatureMatrix[max][1] + " em " + cities[max]);
+    }
+
+    private static int extremeTemperatureIndex(boolean max) {
+        int index = max ? 1 : 0 ;
+        int extremeTempIndex = 0;
+
+        for (int i = 0; i < temperatureMatrix.length; i++) {
+            if (max)
+                extremeTempIndex = temperatureMatrix[i][index] > temperatureMatrix[extremeTempIndex][index] ? i : extremeTempIndex;
+            else
+                extremeTempIndex = temperatureMatrix[i][index] < temperatureMatrix[extremeTempIndex][index] ? i : extremeTempIndex;
+        }
+
+        return extremeTempIndex;
+
     }
 }
